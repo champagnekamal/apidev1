@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+
+# Log files
+*.log
+
+# System files
+.DS_Store
+
+# Environment variables
+.env
+
+# Build files
+build/
+dist/
+
+# IDE files
+.vscode/
+.idea/
+
+# Other ignore files
+*.tmp
+*.orig
+*.swo
+*.swp
