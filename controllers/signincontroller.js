@@ -15,7 +15,7 @@ const signin =async (req,res)=>{
                 id: existinguser._id, 
                 email: existinguser.email 
             }, 'shhhhh', { expiresIn: '1h' });
-            res.status(200).json({email:existinguser?.email, token:token,message: "user logged in" });
+            res.status(200).json({id:existinguser?._id,name:existinguser.name,email:existinguser?.email, token:token,message: "user logged in" });
         } else {
             res.status(401).json({ message: "invalid password" });
         }

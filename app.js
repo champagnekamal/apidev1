@@ -5,6 +5,7 @@ const cors = require('cors');
 const getallprod = require('./routes/products')
 const usermodel = require('./routes/usermodel')
 const resetpassword = require('./routes/resetpassword')
+const blog = require('./routes/blog')
 const connectdb = require('./db/connect')
 
 app.use(express.json());
@@ -17,6 +18,7 @@ app.get('/',(req,res)=>{
 app.use("/api/products",getallprod)
 app.use("/user",usermodel)
 app.use("/reset-password",resetpassword)
+app.use("/blog",blog)
 
 
 const PORT = process.env.PORT || 5000

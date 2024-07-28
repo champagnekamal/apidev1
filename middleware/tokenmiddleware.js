@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const verifytoken = async(req,res,next)=>{
     try {
         const token = req.headers['authorization']
-        debugger
+       
         console.log(token,"erhfvrh");
         if (!token) {
             return res.status(403).json({ msg: 'A token is required for authentication' });
@@ -20,4 +20,4 @@ const verifytoken = async(req,res,next)=>{
     }
 }
 
-module.exports = verifytoken    ;
+module.exports = verifytoken;
