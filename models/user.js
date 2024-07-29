@@ -7,4 +7,6 @@ const CreateUser = new mongoose.Schema({
 },
 {timestamps:true})
 
+
+
 module.exports = mongoose.model('user',CreateUser)

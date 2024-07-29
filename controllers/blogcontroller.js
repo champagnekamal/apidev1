@@ -23,7 +23,6 @@ const createblog = async(req,res)=>{
             name:req?.user?.name
           })
           await blog.save()
-        //  io.emit("request_received",blog)
           res.json(blog)
     } catch (error) {
         console.error(error)

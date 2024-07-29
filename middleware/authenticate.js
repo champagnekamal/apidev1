@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 const authenticateUser = async (req, res, next) => {
-    const token = req.header('authorization');
+    const token =await req.header('authorization');
     if (!token) {
       return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
- 
+ console.log(token,"rnjrbrhrgb");
     try {
        console.log(token);
         const bearerToken = `Bearer ${token}`;

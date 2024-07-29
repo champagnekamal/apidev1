@@ -9,7 +9,7 @@ const blog = require('./routes/blog')
 const connectdb = require('./db/connect')
 const http = require('http');
 const {Server} = require("socket.io")
-
+const users = require('./models/user')
 
 app.use(express.json());
 app.use(cors()); 
@@ -17,17 +17,36 @@ app.use(cors());
 const server = http.createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:"https://authbyakash.netlify.app",
+        origin:"http://localhost:5173/",
         methods:["GET","POST"],
     }
 })
 
 io.on('connection',(socket)=>{
-    console.log(`socket connected ${socket.id}`);
+    console.log(`socket_connected12 ${socket.id}`);
 
- socket.on("send_message",(data)=>{
+ socket.on("refresh_api",(data)=>{
     socket.broadcast.emit("request_received",data)
  })
+
+socket.on("join_room",(data)=>{
+    socket.join(data)
+})
+
+    socket.on("send_message", (data) => {
+        // console.log(data,"backendreceived");
+    socket.to(data.room).emit("receive",data)
+    });
+
+
+    socket.on("user_id", (data) => {
+        console.log(data, "backend_received");
+        // Find the recipient's socket ID
+        const recipientSocketId = users.find((user) => user._id === data.to).socketId;
+        // Send the message to the recipient's socket
+        io.to(recipientSocketId).emit("receive", data);
+      });
+
 })
 app.get('/',(req,res)=>{
     res.send("learning API development in nodejs")
