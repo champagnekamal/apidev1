@@ -7,9 +7,28 @@ const usermodel = require('./routes/usermodel')
 const resetpassword = require('./routes/resetpassword')
 const blog = require('./routes/blog')
 const connectdb = require('./db/connect')
+const http = require('http');
+const {Server} = require("socket.io")
+
 
 app.use(express.json());
 app.use(cors()); 
+
+const server = http.createServer(app)
+const io = new Server(server,{
+    cors:{
+        origin:"http://localhost:5173",
+        methods:["GET","POST"],
+    }
+})
+
+io.on('connection',(socket)=>{
+    console.log(`socket connected ${socket.id}`);
+
+ socket.on("send_message",(data)=>{
+    socket.broadcast.emit("request_received",data)
+ })
+})
 app.get('/',(req,res)=>{
     res.send("learning API development in nodejs")
 })      
@@ -27,7 +46,7 @@ const start = async()=>{
 try {   
    
     await connectdb(process.env.MONGODB_URI)
-    app.listen(PORT,()=>{ 
+    server.listen(PORT,()=>{ 
         `server is live`,
         console.log(`server is live on port ${PORT}`)
     })
@@ -37,3 +56,5 @@ try {
 }
 
 start()
+
+module.exports = { io,server };

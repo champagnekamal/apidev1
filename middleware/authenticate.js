@@ -15,7 +15,7 @@ const authenticateUser = async (req, res, next) => {
      
       req.user = await User.findById(decoded.id);
     //   req.user = decoded.id;
-      console.log(req.user,"denhjhfebhre");
+    //   console.log(req.user,"denhjhfebhre");
       next();
     } catch (error) {
       res.status(400).json({ message: 'Invalid token.' });
